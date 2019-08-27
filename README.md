@@ -1,94 +1,62 @@
-# Deep Learning Specialization on Coursera
+# Stock Prediction with Recurrent Neural Network
 
-**Master Deep Learning, and Break into AI**
+Stock price prediction with RNN. The data we used is from the Chinese stock.
 
-Instructor: [Andrew Ng](http://www.andrewng.org/)
+## Requirements
 
-## Introduction
+- Python 3.5
+- TuShare 0.7.4
+- Pandas 0.19.2
+- Keras 1.2.2
+- Numpy 1.12.0
+- scikit-learn 0.18.1
+- TensorFlow 1.0 (GPU version recommended)
 
-This repo contains all my work for this specialization. All the code base, quiz questions, screenshot, and images, are taken from, unless specified, [Deep Learning Specialization on Coursera](https://www.coursera.org/specializations/deep-learning).
+I personally recommend you to use Anaconda to build your virtual environment. And the program probably cost a significant time if you are not using the GPU version Tensorflow.
 
-## What I want to say
+## Get Data
 
-**VERBOSE CONTENT WARNING: YOU CAN JUMP TO THE NEXT SECTION IF YOU WANT**
+You can run `fetch_data.py` to get a piece of test data. Without changing the script, you can get two seperated csv file named:
 
-As a CS major student and a long-time self-taught learner, I have completed many CS related MOOCs on Coursera, Udacity, Udemy, and Edx. I do understand the hard time you spend on understanding new concepts and debugging your program. There are discussion forums on most MOOC platforms, however, even a question with detailed description may need some time to be answered. Here I released these solutions, which are **only for your reference purpose**. It may help you to save some time. And I hope you don't copy any part of the code (the programming assignments are fairly easy if you read the instructions carefully), see the quiz solutions before you start your own adventure. This course is almost the simplest deep learning course I have ever taken, but the simplicity is based on the fabulous course content and structure. It's a treasure given by deeplearning.ai team.
+- `000002-from-1995-01-01.csv` =====> Contains general data for stock 000002 from 1995-01-01 to today.
+- `000002-3-year.csv` =====> Contains candlestick chart data for stock 000002 (万科A) for the most recent 3 years.
 
-Currently, this repo has 3 major parts you may be interested in and I will give a list here.
+You are expected to see results look like (the first DataFrame contains general data where the the second contains detailed candlestick chart data):
 
-## Programming Assignments
+```
+$ python3 fetch_data.py
+[Getting data:]#########################################################################################
+Saving DataFrame:
+     open   high    low      volume        amount  close
+0  20.64  20.64  20.37  16362363.0  3.350027e+08  20.56
+1  20.92  20.92  20.60  21850597.0  4.520071e+08  20.64
+2  21.00  21.15  20.72  26910139.0  5.628396e+08  20.94
+3  20.70  21.57  20.70  64585536.0  1.363421e+09  21.02
+4  20.60  20.70  20.20  45886018.0  9.382043e+08  20.70
 
-- Course 1: Neural Networks and Deep Learning
+Saving DataFrame:
+     open   high    low     volume  price_change  p_change     ma5    ma10  \
+0  20.64  20.64  20.37  163623.62         -0.08     -0.39  20.772  20.721
+1  20.92  20.92  20.60  218505.95         -0.30     -1.43  20.780  20.718
+2  21.00  21.15  20.72  269101.41         -0.08     -0.38  20.812  20.755
+3  20.70  21.57  20.70  645855.38          0.32      1.55  20.782  20.788
+4  20.60  20.70  20.20  458860.16          0.10      0.48  20.694  20.806
 
-  - [Week 2 - PA 1 - Logistic Regression with a Neural Network mindset](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Logistic%20Regression%20with%20a%20Neural%20Network%20mindset.ipynb)
-  - [Week 3 - PA 2 - Planar data classification with one hidden layer](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Planar%20data%20classification%20with%20one%20hidden%20layer.ipynb)
-  - [Week 4 - PA 3 - Building your Deep Neural Network: Step by Step¶](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Building%20your%20Deep%20Neural%20Network%20-%20Step%20by%20Step.ipynb)
-  - [Week 4 - PA 4 - Deep Neural Network for Image Classification: Application](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Deep%20Neural%20Network%20-%20Application.ipynb)
+     ma20      v_ma5     v_ma10     v_ma20  close
+0  20.954  351189.30  388345.91  394078.37  20.56
+1  20.990  373384.46  403747.59  411728.38  20.64
+2  21.022  392464.55  405000.55  426124.42  20.94
+3  21.054  445386.85  403945.59  473166.37  21.02
+4  21.038  486615.13  378825.52  461835.35  20.70
+```
 
-- Course 2: Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
+## Demo
 
-  - [Week 1 - PA 1 - Initialization](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Initialization.ipynb)
-  - [Week 1 - PA 2 - Regularization](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Regularization.ipynb)
-  - [Week 1 - PA 3 - Gradient Checking](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Gradient%20Checking.ipynb)
-  - [Week 2 - PA 4 - Optimization Methods](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Optimization%20methods.ipynb)
-  - [Week 3 - PA 5 - TensorFlow Tutorial](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Tensorflow%20Tutorial.ipynb)
+<div style="text-align:center">
+	<img src="https://cloud.githubusercontent.com/assets/14886380/25383467/de39614e-29ee-11e7-9a3c-ac9e34720b54.png" alt="Training Result Demo" style="width: 450px;"/>
+</div>
 
-- Course 3: Structuring Machine Learning Projects
+## Reference
 
-  - There is no PA for this course. But this course comes with very interesting case study quizzes.
-  
-- Course 4: Convolutional Neural Networks
-
-  - [Week 1 - PA 1 - Convolutional Model: step by step](https://github.com/Kulbear/deep-learning-coursera/blob/master/Convolutional%20Neural%20Networks/Convolution%20model%20-%20Step%20by%20Step%20-%20v1.ipynb)
-  - [Week 1 - PA 2 - Convolutional Model: application](https://github.com/Kulbear/deep-learning-coursera/blob/master/Convolutional%20Neural%20Networks/Convolution%20model%20-%20Application%20-%20v1.ipynb)
-  - [Week 2 - PA 1 - Keras - Tutorial - Happy House](https://github.com/Kulbear/deep-learning-coursera/blob/master/Convolutional%20Neural%20Networks/Keras%20-%20Tutorial%20-%20Happy%20House%20v1.ipynb)
-  - [Week 2 - PA 2 - Residual Networks](https://github.com/Kulbear/deep-learning-coursera/blob/master/Convolutional%20Neural%20Networks/Residual%20Networks%20-%20v1.ipynb)
-  
-- Course 5: Sequence Models
-
-  - [Week 1 - PA 1 - Building a Recurrent Neural Network - Step by Step](https://github.com/Kulbear/deep-learning-coursera/blob/master/Sequence%20Models/Building%20a%20Recurrent%20Neural%20Network%20-%20Step%20by%20Step%20-%20v2.ipynb)
-  - [Week 1 - PA 2 - Character level language model - Dinosaurus land](https://github.com/Kulbear/deep-learning-coursera/blob/master/Sequence%20Models/Dinosaurus%20Island%20--%20Character%20level%20language%20model%20final%20-%20v3.ipynb)
-
-## Quiz Solutions
-
-There are concerns that some people may use the content here to quickly ace the course so I'll no longer update any quiz solution.
-
-- Course 1: Neural Networks and Deep Learning
-
-  - [Week 1 Quiz - Introduction to deep learning](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Week%201%20Quiz%20-%20Introduction%20to%20deep%20learning.md)
-  - [Week 2 Quiz - Neural Network Basics](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Week%202%20Quiz%20-%20Neural%20Network%20Basics.md)
-  - [Week 3 Quiz - Shallow Neural Networks](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Week%203%20Quiz%20-%20%20Shallow%20Neural%20Networks.md)
-  - [Week 4 Quiz - Key concepts on Deep Neural Networks](https://github.com/Kulbear/deep-learning-coursera/blob/master/Neural%20Networks%20and%20Deep%20Learning/Week%204%20Quiz%20-%20Key%20concepts%20on%20Deep%20Neural%20Networks.md)
-
-- Course 2: Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
-
-  - [Week 1 Quiz - Practical aspects of deep learning](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Week%201%20Quiz%20-%20Practical%20aspects%20of%20deep%20learning.md)
-  - [Week 2 Quiz - Optimization algorithms](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Week%202%20Quiz%20-%20Optimization%20algorithms.md)
-  - [Week 3 Quiz - Hyperparameter tuning, Batch Normalization, Programming Frameworks](https://github.com/Kulbear/deep-learning-coursera/blob/master/Improving%20Deep%20Neural%20Networks%20Hyperparameter%20tuning%2C%20Regularization%20and%20Optimization/Week%203%20Quiz%20-%20Hyperparameter%20tuning%2C%20Batch%20Normalization%2C%20Programming%20Frameworks.md)
-  
-- Course 3: Structuring Machine Learning Projects
-
-  - [Week 1 Quiz - Bird recognition in the city of Peacetopia (case study)](https://github.com/Kulbear/deep-learning-coursera/blob/master/Structuring%20Machine%20Learning%20Projects/Week%201%20Quiz%20-%20Bird%20recognition%20in%20the%20city%20of%20Peacetopia%20(case%20study).md)
-  - [Week 2 Quiz - Autonomous driving (case study)](https://github.com/Kulbear/deep-learning-coursera/blob/master/Structuring%20Machine%20Learning%20Projects/Week%202%20Quiz%20-%20Autonomous%20driving%20(case%20study).md)
-
-~~- Course 4: Convolutional Neural Networks~~
-~~- Course 5: Sequence Models~~
-
-~~## Important Slide Notes~~
-
-~~I screenshotted some important slide page and store them into GitHub issues. It seems not very helpful for everyone since I only keep those I think may be useful to me.~~
-
-~~- [Screenshots for Course 1: Neural Networks and Deep Learning](https://github.com/Kulbear/deep-learning-coursera/issues/1)~~
-
-~~- [Screenshots for Course 2: Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization](https://github.com/Kulbear/deep-learning-coursera/issues/2)~~
-
-~~- [Screenshots for Course 3: Structuring Machine Learning Projects](https://github.com/Kulbear/deep-learning-coursera/issues/3)~~
-
-~~- [Screenshots for Course 4: Convolutional Neural Networks](https://github.com/Kulbear/deep-learning-coursera/issues/14)~~
-
-~~- Screenshots for Course 5: Sequence Models~~
-
-
-## Milestones
-
-  - **2017-08-17**: Finished the first-released 3 courses, YAY! 😈
+- [Time Series Prediction with LSTM Recurrent Neural Networks in Python with Keras](http://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/)
+- [Understanding LSTM Networks by Christopher Olah](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
