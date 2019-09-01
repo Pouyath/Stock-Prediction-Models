@@ -10,9 +10,12 @@ def wash(df, target='close'):
     The last column of the output DataFrame is our prediction target.
     
     # Arguments
-        df: input Pandas DataFrame object.
+
+     df: input Pandas DataFrame object.
+     
     # Returns
-        Postprocessed DataFrame object.
+
+     Postprocessed DataFrame object.
     """
     df = df.reset_index(drop=True)
     col_list = df.columns.tolist()
